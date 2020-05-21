@@ -3,7 +3,14 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: true,
+  
+  apiHost: 'http://rafikapi.codecaique.com/api/',
+  imageUrl: 'http://rafikapi.codecaique.com/uploads',
+  
+
+
+  
 };
 
 /*

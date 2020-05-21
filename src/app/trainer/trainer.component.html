@@ -1,0 +1,357 @@
+
+
+
+  
+
+
+  
+<div class='dragdrop-container' *ngIf="currentPage === 'list'">
+
+
+  <button (click)="showPage('blocklist')" type="submit" class="btn btn-raised btn-primary  rightx">
+     <i class="ft-user-x font-medium-3 mr-2"></i> {{"show block List" }}
+
+  </button> 
+  <br>
+  <br>
+  <br>
+
+  <div class="row ">
+   
+    
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">  <i class="far fa-address-book"></i> {{"Trainer" }} </h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <table class="table table-responsive-md text-center">
+              <thead>
+                <tr>
+                  <th>{{"Image" }} </th>
+                  <th>{{"Name" }}</th>
+                  <th>{{"phone" }}</th>
+                  <th>{{"Email" }}</th>
+                  <th>{{"Action" }}</th>
+                </tr>
+              </thead>
+              <tbody>
+              
+                  
+                <tr *ngFor="let s of show_trainer | paginate: { itemsPerPage: 2, currentPage: p }">
+                <td><img class="media-object round-media" src="{{imageUrl}}/users/{{s.image}}" alt="Generic placeholder image"
+                      style="height: 50px; width: 50px; border-radius: 25px;" /></td>
+                  <td>{{s.first_name}} {{s.last_name}}</td>
+                  <td>{{s.phone}}</td>
+                  <td>{{s.email}}</td>
+                  
+                  
+                   <td>
+
+                    <a [routerLink]="['/previousDealings',s.id]" class="success p-0" 
+                    data-original-title="previous Dealings" title="previous Dealings">
+                      <!-- <i class="icon-book-open font-medium-3 mr-2"></i> -->
+                      <i class="fas fa-book-open"  style=" color: #007bff; cursor: pointer; margin-right: 5px;"></i>
+                    </a>
+
+                    <a (click)="wallet('update_commission',s.id)" class="success p-0" 
+                    data-original-title="COMMISSION" title="COMMISSION">
+                      <!-- <i class="icon-present font-medium-3 mr-2"></i> -->
+                      <i class="fas fa-gift" style="color: #007bff; cursor: pointer; margin-right: 5px;"></i>
+                    </a>
+
+
+                    <a (click)="wallet('add',s.id)" class="success p-0" data-original-title="Recharge Wallet" title="Recharge Wallet">
+                      <!-- <i class="icon-wallet font-medium-3 mr-2"></i> -->
+                      <i class="fas fa-wallet"style=" color: #007bff; cursor: pointer; margin-right: 5px;"></i>
+                    </a>
+
+                    <swal
+                    #deleteSwal
+                    
+                    text="Are you sure?"
+                    icon="warning"
+                    [showCancelButton]="true"
+                    
+                    [focusConfirm]="true"
+                    (confirm)="deleteTask(s.id); deleteSwal2.fire()"
+                    
+                    
+                    >
+                  </swal>
+                  
+                  
+                  <swal
+                  #deleteSwal2
+                  title="block!"
+                  text="Your use has been block."
+                  icon="success"
+                  
+                  
+                  [focusConfirm]="true"
+                  
+                  
+                  
+                  >
+                  </swal>
+                  
+                  
+
+
+
+
+                    <a (click)="deleteSwal.fire()" class="danger p-0" data-original-title="Block User" title="Block User">
+                      <!-- <i class="ft-user-x font-medium-3 mr-2"></i> -->
+                      <i class="fas fa-user-times font-medium-3 mr-2" style=" color: #FF586B ; cursor: pointer; margin-right: 5px;"></i>
+                    </a>
+                  </td> 
+                </tr>
+                
+
+              </tbody>
+            </table>
+          </div>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+
+<div class='dragdrop-container' *ngIf="currentPage === 'add'"  >
+
+  <div class="row">
+
+    <div class="col-md-6 offset-md-3">
+        <div class="card" style="top: 205px !important;
+        left: 440px !important;">
+          <div class="card-header">
+            <h4 class="card-title" style="margin-bottom: .75rem !important;" id="from-actions-bottom-right"> Recharge Wallet  </h4>
+            
+          </div>
+          <div class="card-content">
+            <div class="px-3">
+  
+              <form class="form" [formGroup]="Userform" (submit)="onSubmit(Userform.value)">
+                <div class="form-body">
+
+                 
+                  <div class="row">
+                    <div class="form-group col-md-12 mb-2">
+                      <label for="userinput1" style="margin: .5rem !important;">cash </label>
+                    <input formControlName="cash" type="number" id="userinput1"  class="form-control " placeholder="cash" >
+                    <div class="text-danger" *ngIf="isSubmitted && formControls.cash.errors?.required">This field is required.
+                    </div>
+                  </div>
+
+                  </div>
+
+                  
+                </div>
+  
+                <div class="form-actions right">
+
+                    <button  (click)="showPage('list')" class="btn btn-raised btn-warning mr-1">
+                        <i class="ft-x"></i> Cancel
+                      </button>
+
+                
+                    
+                  <button type="submit" class="btn btn-raised btn-primary">
+                    <i class="fa fa-check-square-o"></i> Create
+                  </button>
+
+
+                 
+
+                </div>
+              </form>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+
+    
+    
+   </div>
+
+</div>
+
+
+
+<div class='dragdrop-container' *ngIf="currentPage === 'update_commission'">
+
+  <div class="row">
+
+    <div class="col-md-6 offset-md-3">
+        <div class="card" style="top: 205px !important;
+        left: 440px !important;">
+          <div class="card-header">
+            <h4 class="card-title" id="from-actions-bottom-right" style="margin: .75rem !important;"> Update Commission</h4>
+            
+          </div>
+          <div class="card-content">
+            <div class="px-3">
+  
+              <form class="form" [formGroup]="Userformx" (submit)="comission(Userformx.value)">
+                <div class="form-body">
+
+                 
+                  <div class="row">
+                    <div class="form-group col-md-12 mb-2">
+                      <label for="comission" style="margin: .5rem !important;">Commission </label>
+                    <input formControlName="comission" type="number" id="comission" 
+                     class="form-control border-primary" placeholder="comission In Percentage " >
+                    <div class="text-danger" *ngIf="isSubmitted && formControls.comission.errors?.required">This field is required.
+                    </div>
+                  </div>
+                  </div>
+
+                  
+                </div>
+  
+                <div class="form-actions right">
+
+                    <button  (click)="showPage('list')" class="btn btn-raised btn-warning mr-1">
+                        <i class="ft-x"></i> Cancel
+                      </button>
+
+                
+                    
+                  <button type="submit" class="btn btn-raised btn-primary">
+                    <i class="fa fa-check-square-o"></i> Update
+                  </button>
+
+
+                 
+
+                </div>
+              </form>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+
+    
+    
+   </div>
+
+</div>
+
+<div class='dragdrop-container' *ngIf="currentPage === 'blocklist'">
+
+  <br>
+
+  <button (click)="showPage('list')" type="submit" class="btn btn-raised btn-warning mr-1  leftx">
+   {{"Back"}}
+
+  </button> 
+  <br>
+  <br>
+  <br>
+    
+  <div class="row ">
+    
+    
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">{{"Trainer"}} </h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <table class="table table-responsive-md text-center">
+              <thead>
+                <tr>
+                  <th>{{"Image"}} </th>
+                  <th>{{"Name" }}</th>
+                  <th>{{"phone"}}</th>
+                  <th>{{"Email" }}</th>
+                  <th>{{"Action"}}</th>
+                </tr>
+              </thead>
+              <tbody>
+              
+                  
+                <tr *ngFor="let s of show_blockedtrainer | paginate: { itemsPerPage: 10, currentPage: p }">
+                
+                <td><img class="media-object round-media" src="{{imageUrl}}/users/{{s.image}}" alt="Generic placeholder image"
+                      style="height: 50px; width: 50px; border-radius: 25px;" /></td>
+                  <td>{{s.first_name}} {{s.last_name}}</td>
+                  <td>{{s.phone}}</td>
+                  <td>{{s.email}}</td>
+
+              
+                   <td>
+                   
+                    
+                    <a  class="success p-0" data-original-title="UnBlock User" title="Delete User">
+
+
+                     
+
+
+                     <i (click)="deleteSwal3.fire()" style=" color: #0CC27E  ; cursor: pointer; margin-right: 5px;" class="fas fa-user-check"></i>
+
+                     <!--  <i  class="ft-user-check  font-medium-3 mr-2"></i> -->
+                    </a>
+                  </td> 
+                  <swal
+                  #deleteSwal3
+                  
+                  text="Are you sure? You want to unblock this user?"
+                  icon="warning"
+                  [showCancelButton]="true"
+                  
+                  [focusConfirm]="true"
+                  (confirm)="unblock_user(s.id); deleteSwal4.fire()"
+                  
+                  
+                  >
+                </swal>
+                
+                
+                <swal
+                #deleteSwal4
+                title="UnBlocked!"
+                text="Your use has been UnBlocked."
+                icon="success"
+                
+                
+                [focusConfirm]="true"
+                
+                
+                
+                >
+                </swal>
+                </tr>
+                
+
+              </tbody>
+            </table>
+          </div>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+         
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+
+
+
+
+  
+
+ 

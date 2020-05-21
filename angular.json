@@ -24,9 +24,20 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "node_modules/sweetalert2/dist/sweetalert2.min.css",
+              "src/assets/css/wizard.css",
+              "src/assets/css/quill.snow.css",
+              "src/assets/css/quill.bubble.css",
+              "src/assets/css/hopscotch.css",
+              "src/styles.css",
+              "node_modules/ngx-toastr/toastr.css"
+              ,"node_modules/font-awesome/css/font-awesome.css"
+              ,"src/assets/css/demo.css"
+              
             ],
-            "scripts": []
+            "scripts": [
+              
+            ]
           },
           "configurations": {
             "production": {
